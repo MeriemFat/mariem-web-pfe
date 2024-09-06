@@ -1,0 +1,13 @@
+.top {
+    background: #ffffff url(../../images/bg-login.gif) left top repeat;
+}
+.logo {
+    float: left;
+    padding-top: 20px;
+}
+.wrapper_top_in {
+    width: 940px;
+    margin: auto;
+    padding: 10px 0 0 0;
+    position: relative;
+}

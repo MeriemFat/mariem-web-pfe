@@ -1,0 +1,237 @@
+.selected-chat {
+    background-color: #f0f0f0; /* Example background color */
+    border-left: 5px solid #DD2F6E; /* Example border color */
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff; /* Couleur de fond */
+    border: 1px solid #dee2e6; /* Bordure */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre */
+    padding: 15px; /* Espacement intérieur */
+}
+
+.card h3 {
+    font-size: 1.5rem; /* Taille de police pour le titre */
+    margin-bottom: 10px; /* Marge basse sous le titre */
+    color: #DD2F6E; /* Couleur du texte */
+}
+
+.card .messages-container {
+    overflow-y: auto; /* Défilement vertical si nécessaire */
+    max-height: 300px; /* Hauteur maximale de la zone de messages */
+}
+
+.card_footer {
+    padding-top: 20px; /* Espacement en haut du pied de carte */
+}
+
+.card_footer form {
+    padding: 20px 30px 10px; /* Espacement intérieur du formulaire */
+}
+
+.card_footer .d-flex {
+    justify-content: space-between; /* Répartition des éléments sur l'axe horizontal */
+    align-items: center; /* Alignement vertical des éléments */
+}
+
+.card_footer input[type="text"] {
+    flex: 1; /* Remplissage flexible pour l'entrée de texte */
+    padding: 10px; /* Espacement intérieur */
+    font-size: 1rem; /* Taille de police */
+    border: 1px solid #ced4da; /* Bordure */
+    border-radius: 4px; /* Coins arrondis */
+}
+
+.card_footer button.btn {
+    padding: 10px 20px; /* Espacement intérieur du bouton */
+    font-size: 1rem; /* Taille de police */
+    background-color: #DD2F6E; /* Couleur de fond du bouton */
+    color: #ffffff; /* Couleur du texte du bouton */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur de souris */
+}
+
+.card_footer button.btn:disabled {
+    background-color: #ced4da; /* Couleur de fond du bouton désactivé */
+    cursor: not-allowed; /* Curseur non autorisé */
+}
+
+.card_footer button.btn:disabled:hover {
+    background-color: #ced4da; /* Couleur de fond au survol pour le bouton désactivé */
+}
+
+.card_footer button.btn--outlined {
+    background-color: transparent; /* Bouton avec fond transparent */
+    border: 1px solid #DD2F6E; /* Bordure solide */
+    color: #DD2F6E; /* Couleur du texte */
+}
+
+.card_footer button.btn--outlined:hover {
+    background-color: #DD2F6E; /* Couleur de fond au survol pour le bouton contour */
+    color: #ffffff; /* Couleur du texte au survol pour le bouton contour */
+}
+
+
+/*   partie form */
+
+.card {
+    background-color: #ffffff; /* Couleur de fond de la carte */
+    border: 1px solid #dee2e6; /* Bordure de la carte */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre */
+    margin-bottom: 20px; /* Marge basse */
+}
+
+.card-header {
+    border-bottom: 1px solid #dee2e6; /* Bordure inférieure du header */
+    padding: 10px 15px; /* Espacement intérieur du header */
+}
+
+.card-header h5 {
+    color: #DD2F6E; /* Couleur du texte du titre */
+    font-size: 1.25rem; /* Taille de police du titre */
+    margin-bottom: 0; /* Marge basse pour le titre */
+}
+
+.card-body {
+    padding: 15px; /* Espacement intérieur du corps */
+}
+
+.profile-news {
+    padding-top: 10px; /* Espacement en haut des nouvelles de profil */
+}
+
+.profile-news .media {
+    cursor: pointer; /* Curseur de la souris */
+    transition: background-color 0.3s ease; /* Transition de couleur de fond */
+}
+
+.profile-news .media:hover {
+    background-color: #f8f9fa; /* Couleur de fond au survol */
+}
+
+.profile-news .media.selected-chat {
+    background-color: #e9ecef; /* Couleur de fond pour le chat sélectionné */
+}
+
+.profile-news .media img {
+    width: 75px; /* Largeur de l'image */
+    height: 75px; /* Hauteur de l'image */
+    border-radius: 50%; /* Coins arrondis */
+}
+
+.profile-news .media .media-body {
+    padding-left: 15px; /* Espacement intérieur à gauche du corps média */
+}
+
+.card-footer {
+    padding: 15px; /* Espacement intérieur du footer */
+    border-top: 1px solid #dee2e6; /* Bordure supérieure du footer */
+}
+
+.card-footer .btn {
+    padding: 10px 20px; /* Espacement intérieur du bouton */
+    font-size: 1rem; /* Taille de police du bouton */
+    background-color: #DD2F6E; /* Couleur de fond du bouton */
+    color: #ffffff; /* Couleur du texte du bouton */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur de la souris */
+    transition: background-color 0.3s ease; /* Transition de couleur de fond */
+}
+
+.card-footer .btn:hover {
+    background-color: #ced4da; /* Couleur de fond au survol */
+}
+
+.card-footer .btn:disabled {
+    background-color: #ced4da; /* Couleur de fond du bouton désactivé */
+    cursor: not-allowed; /* Curseur non autorisé */
+}
+
+.card-footer .btn.btn--outlined {
+    background-color: transparent; /* Fond transparent pour le bouton contour */
+    border: 1px solid #DD2F6E; /* Bordure solide */
+    color: #DD2F6E; /* Couleur du texte */
+    margin-left: 10px; /* Marge à gauche */
+}
+
+.card-footer .btn.btn--outlined:hover {
+    background-color: #DD2F6E; /* Couleur de fond au survol pour le bouton contour */
+    color: #ffffff; /* Couleur du texte au survol pour le bouton contour */
+}
+
+
+
+.form-wrapper {
+    padding: 20px 30px 10px; /* Espacement intérieur du formulaire */
+}
+
+.form-control {
+    width: 100%; /* Largeur pleine du contrôle de formulaire */
+    padding: 10px; /* Espacement intérieur du contrôle de formulaire */
+    margin-bottom: 15px; /* Marge basse entre les contrôles de formulaire */
+    border: 1px solid #ced4da; /* Bordure du contrôle de formulaire */
+    border-radius: 4px; /* Coins arrondis du contrôle de formulaire */
+    font-size: 1rem; /* Taille de police du contrôle de formulaire */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transition de la couleur de la bordure et de l'ombre */
+}
+
+.form-control:focus {
+    outline: none; /* Pas de contour au focus */
+    border-color: #DD2F6E; /* Couleur de la bordure au focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Ombre au focus */
+}
+
+.select-wrapper {
+    position: relative; /* Position relative pour le sélecteur */
+}
+
+.select-wrapper select {
+    width: 100%; /* Largeur pleine du sélecteur */
+    padding: 10px; /* Espacement intérieur du sélecteur */
+    margin-bottom: 15px; /* Marge basse entre les sélecteurs */
+    border: 1px solid #ced4da; /* Bordure du sélecteur */
+    border-radius: 4px; /* Coins arrondis du sélecteur */
+    font-size: 1rem; /* Taille de police du sélecteur */
+    background-color: #ffffff; /* Couleur de fond du sélecteur */
+    appearance: none; /* Ne pas afficher l'apparence native du sélecteur */
+}
+
+.select-wrapper::before {
+    content: '\f078'; /* Icône du sélecteur (flèche vers le bas) */
+    font-family: 'FontAwesome'; /* Famille de police pour l'icône */
+    position: absolute; /* Position absolue */
+    top: 50%; /* Alignement vertical au milieu */
+    right: 10px; /* Marge à droite */
+    transform: translateY(-50%); /* Décalage vertical */
+    pointer-events: none; /* Désactiver les événements du pointeur */
+    color: #495057; /* Couleur de l'icône */
+}
+
+.button-group {
+    display: grid; /* Utiliser un affichage en grille pour les boutons */
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes égales */
+    grid-gap: 10px; /* Espacement entre les boutons */
+}
+
+.button-group .btn {
+    width: 100%; /* Largeur pleine des boutons */
+    padding: 10px; /* Espacement intérieur des boutons */
+    font-size: 1rem; /* Taille de police des boutons */
+}
+
+.button-group .btn.btn--outlined {
+    background-color: transparent; /* Fond transparent pour le bouton contour */
+    border: 1px solid #DD2F6E; /* Bordure solide */
+    color: #DD2F6E; /* Couleur du texte */
+}
+
+.button-group .btn.btn--outlined:hover {
+    background-color: #DD2F6E; /* Couleur de fond au survol pour le bouton contour */
+    color: #ffffff; /* Couleur du texte au survol pour le bouton contour */
+}
