@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { GiWhistle } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
-import { FaUserPen } from "react-icons/fa6";
-import { MdManageAccounts } from "react-icons/md";
 import Role from "../../../../utils/Role";
 import { useRoleRequest } from "../../../../Hooks/useRoleRequest";
 import { Controller, useForm } from "react-hook-form";
@@ -12,10 +10,8 @@ const StepThree = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
 
     const ROLE_OPTIONS = [
-        { value: Role.COLLABORATEUR, label: 'Collaborateur', icon: <GiWhistle /> },
-        { value: Role.ADMIN, label: 'Admin', icon: <GrUserManager /> },
-        { value: Role.USER, label: 'User', icon: <FaUserPen /> },
-        { value: Role.FOURNISSEUR, label: 'Fournisseur', icon: <MdManageAccounts /> },
+        { value: Role.AGENT, label: 'Agent', icon: <GiWhistle /> },
+        { value: Role.ADMIN, label: 'Central Technique', icon: <GrUserManager /> },
     ];
 
     const onSubmit = async (data) => {
@@ -66,7 +62,7 @@ const StepThree = () => {
                                     ref={field.ref}
                                 >
                                     <option value="" disabled>
-                                        Collaborate...
+                                        Agent...
                                     </option>
                                     {ROLE_OPTIONS.map((option) => (
                                         <option key={option.value} value={option.value}>

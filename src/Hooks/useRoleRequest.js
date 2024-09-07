@@ -15,7 +15,7 @@ export const useRoleRequest = () => {
         setIsLoading(true);
         setError('');
 
-        const response = await fetch(`/api/User/request/`, {
+        const response = await fetch(`api/User/request/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,36 +43,28 @@ export const useRoleRequest = () => {
     };
     const checkRequest = async ()=> {
         setFetching(true);
-        const response = await fetch(`/api/User/check-request`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-        })
-        const json = await response.json()
+        const token = localStorage.getItem('token'); // Récupérer le token JWT
 
-        if (json.error) {
-            if(json.error==='jwt expired'){
-                localStorage.removeItem('token');
-                toast.dark('Please, re-sign in');
-                setFetching(false);
-            }
-            setError(json.error)
-            setFetching(false);
-            toast.error(json.error);
-        }
-        if (!json.error) {
-            if(json.request){
-                setRequest(json.request);
-            }
-        }
-        setFetching(false);
+        fetch('api/User/check-request', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => console.log('Role request data:', data))
+        .catch(error => console.error('Error checking request:', error));
     }
 
     const fetchRequests = async ()=> {
         setIsLoading(true);
-        const response = await fetch(`/api/User/requests`, {
+        const response = await fetch(`api/User/requests`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -99,7 +91,7 @@ export const useRoleRequest = () => {
     }
     const acceptRequest = async (request)=> {
         setFetching(true);
-        const response = await fetch(`/api/User/accept`, {
+        const response = await fetch(`api/User/accept`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,7 +117,7 @@ export const useRoleRequest = () => {
     }
     const rejectRequest = async (request)=> {
         setFetching(true);
-        const response = await fetch(`/api/User/reject`, {
+        const response = await fetch(`api/User/reject`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

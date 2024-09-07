@@ -9,6 +9,17 @@ const StepTwo = () => {
          <div className="row">
             <div className="col-lg-6 mb-2">
                <div className="form-group mb-3">
+                  <label className="text-label">Code Agent*</label>
+                  <input
+                      type="text"
+                      name="codeAgent"
+                      className="form-control"
+                      placeholder={USER.codeAgent}
+                  />
+               </div>
+            </div>
+            <div className="col-lg-6 mb-2">
+               <div className="form-group mb-3">
                   <label className="text-label">Nom*</label>
                   <input
                       type="text"
