@@ -4,5 +4,4 @@ const Role = {
     USER: 1,
     AGENT: 20
 };
-
 export default Role;

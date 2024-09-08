@@ -12,9 +12,9 @@ const StepTwo = () => {
                   <label className="text-label">Code Agent*</label>
                   <input
                       type="text"
-                      name="codeAgent"
+                      name="codeClient"
                       className="form-control"
-                      placeholder={USER.codeAgent}
+                      placeholder={USER.codeClient}
                   />
                </div>
             </div>

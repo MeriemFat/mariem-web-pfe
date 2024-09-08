@@ -41,26 +41,41 @@ export const useRoleRequest = () => {
         toast.success('Your request is successfully emitted and pending an admin reply!');
         setIsLoading(false);
     };
-    const checkRequest = async ()=> {
+    const checkRequest = async () => {
         setFetching(true);
         const token = localStorage.getItem('token'); // Récupérer le token JWT
-
-        fetch('api/User/check-request', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
-            'Content-Type': 'application/json'
-          }
+    
+        if (!token) {
+            console.error('Token missing! Please log in again.');
+            toast.error('Please log in to check your request.');
+            setFetching(false);
+            return;
+        }
+    
+        fetch('/api/User/check-request', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
+                'Content-Type': 'application/json'
+            }
         })
         .then(response => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
         })
-        .then(data => console.log('Role request data:', data))
-        .catch(error => console.error('Error checking request:', error));
+        .then(data => {
+            console.log('Role request data:', data);
+            setFetching(false);
+        })
+        .catch(error => {
+            console.error('Error checking request:', error);
+            setFetching(false);
+            toast.error('Error fetching the role request.');
+        });
     }
+    
 
     const fetchRequests = async ()=> {
         setIsLoading(true);

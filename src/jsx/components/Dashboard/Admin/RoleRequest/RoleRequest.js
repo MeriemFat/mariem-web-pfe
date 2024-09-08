@@ -11,7 +11,7 @@ const DatatablePstatus = () => {
     // Fonction pour récupérer les demandes
     const fetchRequests = async () => {
         try {
-            const response = await axios.get('/api/User/requests');
+            const response = await axios.get('api/User/requests');
             console.log(response.data); // Ajoutez cette ligne pour vérifier les données
             setUsers(response.data);
         } catch (error) {
@@ -24,26 +24,11 @@ const DatatablePstatus = () => {
     useEffect(() => {
         fetchRequests();
     }, []);
-
     // Fonction pour accepter une demande
     const handleAccept = async (item) => {
         try {
-            const updatedItem = {
-                codeClient: item.codeClient,
-                codeAgent: item.codeAgent,
-                Nom: item.Nom,
-                prenom: item.prenom,
-                phone: item.phone,
-                adresse: item.adresse,
-                email: item.email,
-                cin: item.cin,
-                typePerson: item.typePerson,
-                ville: item.ville,
-                codePostal: item.codePostal,
-                typeIdentifiant: item.typeIdentifiant,
-                dateCreation: item.dateCreation,
-            };
-            await acceptRequest(updatedItem);
+            item.user = item.user._id; // Utilisation de user._id
+            await acceptRequest(item);
             toast.success("Request accepted successfully");
             fetchRequests(); // Rafraîchir les données après l'action
         } catch (error) {
@@ -55,22 +40,8 @@ const DatatablePstatus = () => {
     // Fonction pour rejeter une demande
     const handleReject = async (item) => {
         try {
-            const updatedItem = {
-                codeClient: item.codeClient,
-                codeAgent: item.codeAgent,
-                Nom: item.Nom,
-                prenom: item.prenom,
-                phone: item.phone,
-                adresse: item.adresse,
-                email: item.email,
-                cin: item.cin,
-                typePerson: item.typePerson,
-                ville: item.ville,
-                codePostal: item.codePostal,
-                typeIdentifiant: item.typeIdentifiant,
-                dateCreation: item.dateCreation,
-            };
-            await rejectRequest(updatedItem);
+            item.user = item.user._id; // Utilisation de user._id
+            await rejectRequest(item);
             toast.success("Request rejected successfully");
             fetchRequests(); // Rafraîchir les données après l'action
         } catch (error) {
@@ -78,6 +49,7 @@ const DatatablePstatus = () => {
             toast.error("Failed to reject request");
         }
     };
+
 
     // Configuration du tableau de données
     const dataTable = {
