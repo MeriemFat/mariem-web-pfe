@@ -79,13 +79,20 @@ export const useRoleRequest = () => {
 
     const fetchRequests = async ()=> {
         setIsLoading(true);
-        const response = await fetch(`api/User/requests`, {
+        const token = localStorage.getItem('token'); // Récupérer le token JWT
+        if (!token) {
+            console.error('Token missing! Please log in again.');
+            toast.error('Please log in to check your request.');
+            setIsLoading(false);
+            return;
+        }
+    
+        const response = await fetch(`api/User/requests`,{
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-        })
+                'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
+                'Content-Type': 'application/json' // Bien que non nécessaire pour GET, c'est correct
+            }})
         const json = await response.json()
 
         if (json.error) {

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const DatatablePstatus = () => {
-    const [users, setUsers] = useState([]);
+    const [requests, setRequests] = useState([]);
     const { acceptRequest, rejectRequest } = useRoleRequest();
 
     // Fonction pour récupérer les demandes
@@ -13,7 +13,7 @@ const DatatablePstatus = () => {
         try {
             const response = await axios.get('api/User/requests');
             console.log(response.data); // Ajoutez cette ligne pour vérifier les données
-            setUsers(response.data);
+            setRequests(response.data);
         } catch (error) {
             console.error("Failed to fetch requests:", error);
             toast.error("Failed to fetch requests");
@@ -76,31 +76,31 @@ const DatatablePstatus = () => {
             { label: 'Requested Role', field: 'requestedRole' },
             { label: 'Action', field: 'action' },
         ],
-        rows: users.map((request) => ({
-                           codeClient: request.codeClient,
-                            codeAgent: request.codeAgent,
-                            Nom: request.Nom,
-                            prenom: request.prenom,
-                            phone: request.phone,
-                            adresse: request.adresse,
-                            email: request.email,
-                            cin: request.cin,
-                            typePerson: request.typePerson,
-                            ville: request.ville,
-                            codePostal: request.codePostal,
-                            typeIdentifiant: request.typeIdentifiant,
-                            dateCreation: request.dateCreation,
-                            dateDernierMiseAjour: request.dateDernierMiseAjour,
-                            dateValidite: request.dateValidite,
-                            roles: request.roles,
-                            codeParent: request.codeParent,
-                            avatar: request.avatar,
-                            identifiant: request.identifiant,
+        rows: requests.map((request) => ({
+                            codeClient: request.user.codeClient,
+                            codeAgent: request.user.codeAgent,
+                            Nom: request.user.Nom,
+                            prenom: request.user.prenom,
+                            phone: request.user.phone,
+                            adresse: request.user.adresse,
+                            email: request.user.email,
+                            cin: request.user.cin,
+                            typePerson: request.user.typePerson,
+                            ville: request.user.ville,
+                            codePostal: request.user.codePostal,
+                            typeIdentifiant: request.user.typeIdentifiant,
+                            dateCreation: request.user.dateCreation,
+                            dateDernierMiseAjour: request.user.dateDernierMiseAjour,
+                            dateValidite: request.user.dateValidite,
+                            roles: request.user.roles,
+                            codeParent: request.user.codeParent,
+                            avatar: request.user.avatar,
+                            identifiant: request.user.identifiant,
             requestedRole: (
                 <div>
                     <span className="badge badge-primary">
-                        {request.requestedRole === 10 ? "CLIENT" :
-                            request.requestedRole === 20 ? "AGENT" :
+                        {request.user.requestedRole === 10 ? "CLIENT" :
+                            request.user.requestedRole === 20 ? "AGENT" :
                                 "UNKNOWN"}
                     </span>
                 </div>
@@ -111,7 +111,7 @@ const DatatablePstatus = () => {
                         <li className="pb-2">
                             <button className="btn btn-success pr-4" onClick={() => handleAccept(request)}>
                                 Accept
-                            </button>
+                            </button>   
                         </li>
                         <li>
                             <button className="btn btn-danger" onClick={() => handleReject(request)}>

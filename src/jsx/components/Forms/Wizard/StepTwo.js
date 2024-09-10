@@ -14,7 +14,7 @@ const StepTwo = () => {
                       type="text"
                       name="codeClient"
                       className="form-control"
-                      placeholder={USER.codeClient}
+                      value={USER.codeClient}
                   />
                </div>
             </div>
@@ -25,7 +25,7 @@ const StepTwo = () => {
                       type="text"
                       name="Nom"
                       className="form-control"
-                      placeholder={USER.Nom}
+                      value={USER.Nom}
                       required
                   />
                </div>
@@ -37,7 +37,7 @@ const StepTwo = () => {
                       type="text"
                       name="prenom"
                       className="form-control"
-                      placeholder={USER.prenom}
+                      value={USER.prenom}
                       required
                   />
                </div>
@@ -49,7 +49,7 @@ const StepTwo = () => {
                       type="email"
                       className="form-control"
                       id="email1"
-                      placeholder={USER.email}
+                      value={USER.email}
                       required
                   />
                </div>
@@ -61,7 +61,7 @@ const StepTwo = () => {
                       type="text"
                       name="phone"
                       className="form-control"
-                      placeholder={USER.phone}
+                      value={USER.phone}
                       required
                   />
                </div>
@@ -73,7 +73,7 @@ const StepTwo = () => {
                       type="text"
                       name="adresse"
                       className="form-control"
-                      placeholder={USER.adresse}
+                      value={USER.adresse}
                   />
                </div>
             </div>
@@ -84,7 +84,7 @@ const StepTwo = () => {
                       type="text"
                       name="ville"
                       className="form-control"
-                      placeholder={USER.ville}
+                      value={USER.ville}
                   />
                </div>
             </div>
@@ -95,7 +95,7 @@ const StepTwo = () => {
                       type="text"
                       name="codePostal"
                       className="form-control"
-                      placeholder={USER.codePostal}
+                      value={USER.codePostal}
                   />
                </div>
             </div>
@@ -106,7 +106,7 @@ const StepTwo = () => {
                       type="text"
                       name="typeIdentifiant"
                       className="form-control"
-                      placeholder={USER.typeIdentifiant}
+                      value={USER.typeIdentifiant}
                   />
                </div>
             </div>
