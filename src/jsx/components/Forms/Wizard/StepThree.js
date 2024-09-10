@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GiWhistle } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
 import Role from "../../../../utils/Role";
@@ -10,6 +10,7 @@ const StepThree = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
 
     const ROLE_OPTIONS = [
+        { value: Role.Client, label: 'Client', icon: <GiWhistle /> },
         { value: Role.AGENT, label: 'Agent', icon: <GiWhistle /> },
         { value: Role.ADMIN, label: 'Central Technique', icon: <GrUserManager /> },
     ];
@@ -17,6 +18,8 @@ const StepThree = () => {
     const onSubmit = async (data) => {
         try {
             await submitRequest(data.role);
+          
+            console.log(data); 
         } catch (error) {
             console.error("Error submitting request:", error);
         }
@@ -32,7 +35,7 @@ const StepThree = () => {
         }
 
         fetchData();
-    }, [checkRequest]);
+    }, []);
 
     return (
         <section>
@@ -62,7 +65,7 @@ const StepThree = () => {
                                     ref={field.ref}
                                 >
                                     <option value="" disabled>
-                                        Agent...
+                                        Client ...
                                     </option>
                                     {ROLE_OPTIONS.map((option) => (
                                         <option key={option.value} value={option.value}>

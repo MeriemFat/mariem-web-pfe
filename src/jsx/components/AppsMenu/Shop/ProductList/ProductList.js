@@ -9,6 +9,7 @@ export class ProductList extends Component {
     super(props);
     this.state = {
       contrats: [],
+      clients: [],  // Ajout de l'état pour les clients
       _id: '',
       libelle_branche: '',
       libelle_sous_branche: '',
@@ -18,7 +19,8 @@ export class ProductList extends Component {
       codeAgent: '',
       mode: 'add',
       loading: true,
-      error: null
+      error: null,
+      showClientForm: false // Ajout de l'état pour afficher/masquer le formulaire de sélection de client
     };
 
     this.columns = [
@@ -79,17 +81,29 @@ export class ProductList extends Component {
 
   componentDidMount() {
     this.loadData();
+    this.loadClients(); // Chargement des clients au démarrage
   }
+
   loadData = () => {
     axios.get(`/api/contrat/getAllContrats`)
       .then(response => {
-        this.setState({ contrats: response.data });
+        this.setState({ contrats: response.data, loading: false });
       })
       .catch(error => {
-        console.log(error);
+        console.error('Erreur lors du chargement des contrats:', error);
+        this.setState({ loading: false, error: 'Erreur lors du chargement des contrats.' });
       });
   };
-  
+
+  loadClients = () => {
+    axios.get(`/api/contrat/Clients`)
+      .then(response => {
+        this.setState({ clients: response.data });
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement des clients:', error);
+      });
+  };
 
   editRecord = record => {
     this.setState({
@@ -117,7 +131,7 @@ export class ProductList extends Component {
       Alert('Erreur lors de la suppression du contrat. Veuillez réessayer plus tard.', 'Erreur');
     }
   };
-  
+
   deleteContrat = async (_id) => {
     try {
       if (!_id) {
@@ -142,13 +156,13 @@ export class ProductList extends Component {
       _id: ''
     });
   };
-  
+
   onSubmit = (e) => {
     e.preventDefault();
-  
+
     const { libelle_branche, libelle_sous_branche, date_echeance_prochaine, type_personne, codeClient, codeAgent, _id } = this.state;
     const contrat = { libelle_branche, libelle_sous_branche, date_echeance_prochaine, type_personne, codeClient, codeAgent };
-  
+
     if (_id) {
       axios.put(`/api/contrat/ModifierContrat/${_id}`, contrat)
         .then(() => {
@@ -173,19 +187,56 @@ export class ProductList extends Component {
         });
     }
   };
-  
+
+  handleClientSelection = (e) => {
+    this.setState({ codeClient: e.target.value });
+  };
+
+  toggleClientForm = () => {
+    this.setState(prevState => ({ showClientForm: !prevState.showClientForm }));
+  };
+
   render() {
-    const { loading, error, contrats } = this.state;
+    const { loading, error, contrats, clients, showClientForm, mode } = this.state;
 
     return (
       <div className="container mt-4">
+          <Button onClick={this.toggleClientForm} className="mt-3">
+          {showClientForm ? 'Masquer le formulaire de client' : 'Chousir Votre Client client'}
+        </Button>
+        {showClientForm && (
+          <Row className="mb-3">
+            <Col>
+              <Card className="p-3">
+                <Card.Body>
+                  <Card.Title>Sélectionner un Client</Card.Title>
+                  <Form.Group controlId="clientSelection">
+                    <Form.Label>Clients</Form.Label>
+                    <Form.Control
+                      as="select"
+                      value={this.state.codeClient}
+                      onChange={this.handleClientSelection}
+                      size="m"
+                    >
+                      <option value="">Sélectionner un Client</option>
+                      {clients.map(client => (
+                        <option key={client._id} value={client.codeClient}>
+                          {client.nom} {client.prenom} {client.codeClient}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
         <Row className="mb-3">
           <Col>
             <Card className="p-3">
               <Card.Body>
-                <Card.Title className="mb-2">{this.state.mode === 'edit' ? 'Modifier un Contrat' : 'Ajouter un Contrat'}</Card.Title>
+                <Card.Title className="mb-2">{mode === 'edit' ? 'Modifier un Contrat' : 'Ajouter un Contrat'}</Card.Title>
                 <Form onSubmit={this.onSubmit}>
-                  {/* Form Fields */}
                   <Form.Group controlId="libelle_branche">
                     <Form.Label>Libellé Branche</Form.Label>
                     <Form.Control
@@ -194,7 +245,6 @@ export class ProductList extends Component {
                       value={this.state.libelle_branche}
                       onChange={e => this.setState({ libelle_branche: e.target.value })}
                       required
-                      size="sm"
                     />
                   </Form.Group>
                   <Form.Group controlId="libelle_sous_branche">
@@ -205,17 +255,16 @@ export class ProductList extends Component {
                       value={this.state.libelle_sous_branche}
                       onChange={e => this.setState({ libelle_sous_branche: e.target.value })}
                       required
-                      size="sm"
                     />
                   </Form.Group>
                   <Form.Group controlId="date_echeance_prochaine">
                     <Form.Label>Date Échéance Prochaine</Form.Label>
                     <Form.Control
                       type="date"
+                      placeholder="Date Échéance Prochaine"
                       value={this.state.date_echeance_prochaine}
                       onChange={e => this.setState({ date_echeance_prochaine: e.target.value })}
                       required
-                      size="sm"
                     />
                   </Form.Group>
                   <Form.Group controlId="type_personne">
@@ -226,7 +275,6 @@ export class ProductList extends Component {
                       value={this.state.type_personne}
                       onChange={e => this.setState({ type_personne: e.target.value })}
                       required
-                      size="sm"
                     />
                   </Form.Group>
                   <Form.Group controlId="codeClient">
@@ -237,7 +285,6 @@ export class ProductList extends Component {
                       value={this.state.codeClient}
                       onChange={e => this.setState({ codeClient: e.target.value })}
                       required
-                      size="sm"
                     />
                   </Form.Group>
                   <Form.Group controlId="codeAgent">
@@ -248,11 +295,10 @@ export class ProductList extends Component {
                       value={this.state.codeAgent}
                       onChange={e => this.setState({ codeAgent: e.target.value })}
                       required
-                      size="sm"
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit" size="sm">
-                    {this.state.mode === 'edit' ? 'Modifier' : 'Ajouter'}
+                  <Button variant="primary" type="submit">
+                    {mode === 'edit' ? 'Modifier' : 'Ajouter'}
                   </Button>
                 </Form>
               </Card.Body>
@@ -261,20 +307,25 @@ export class ProductList extends Component {
         </Row>
         <Row>
           <Col>
-            <Card className="p-3">
+            <Card>
               <Card.Body>
                 <Card.Title>Liste des Contrats</Card.Title>
-             
+                {loading ? (
+                  <div>Chargement...</div>
+                ) : error ? (
+                  <div className="alert alert-danger">{error}</div>
+                ) : (
                   <ReactDatatable
                     records={contrats}
                     columns={this.columns}
                     config={this.config}
                   />
-             
+                )}
               </Card.Body>
             </Card>
           </Col>
         </Row>
+      
       </div>
     );
   }

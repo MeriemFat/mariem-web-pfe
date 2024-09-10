@@ -92,7 +92,7 @@ function App (props) {
         { url: "payment-admin", component: <ListPayment/> },
         { url: "Gestion_des_Demandes", component: <Review/> },
         { url: "Gestion_des_Contrats", component: <ReservationlistAdmin/> },
-        { url: "complaint-list", component: <Complaintlist/> },
+    
         { url: "role-request", component: <RoleRequest/> },
         { url: "Gestion_Utilisateures", component: <Userlist/> },
         { url: "Gestion_des_Sinistres", component: <Slotlist/> },
@@ -112,15 +112,15 @@ function App (props) {
 
 
 //collaborateur
-        { url: "complaint", component: <Complaint/> },
+     
         { url: 'Sinistre', component: <Sinistre/> },
         { url: 'chat', component: <Chat/> },
         { url: 'profile', component: <Complaint/> },
         { url: 'Contrats', component: <Contrats/> },
      
         { url: 'review', component: <ReviewCollaborateur/> },
-        { url: 'service-request', component: <WizardCollaborateur/> },
-        { url: 'service-list', component: <ListServiceCollaborateur/> },
+   
+    
         { url: 'catalogue', component: <PaymentListCollaborateur/> },
         {url:'/catalogue/:codeBranche/products' ,component:<CatalogueProductsPage />}, 
         { url: 'payment-flouci', component: <PaymentFlouci/> },
@@ -129,7 +129,7 @@ function App (props) {
 
 
 
-
+       
 
 
 

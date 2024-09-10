@@ -77,17 +77,28 @@ const Complaint = () => {
 
     const handleSaveChanges = async () => {
         try {
-            const response = await axios.put(`/api/User/profile`, formData);
+            const response = await axios.put('/api/User/profile', formData, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assurez-vous que `yourToken` est défini et correctement initialisé
+                    'Content-Type': 'application/json' // Spécifiez le type de contenu si nécessaire
+                }
+            });
+    
             if (response.status === 200) {
                 toast.success("Profile updated successfully");
                 setUserData(formData);
                 setShowModal(false); // Close modal after save
+            } else {
+                // Gérez les autres codes de statut HTTP si nécessaire
+                toast.error(`Error updating profile: ${response.status}`);
             }
         } catch (error) {
-            toast.error("Error updating profile");
+            // Affichez des erreurs détaillées
+            console.error('Error updating profile:', error);
+            toast.error(`Error updating profile: ${error.response?.data?.message || 'Server error'}`);
         }
     };
-
+    
     return (
         USER ? (
             <Fragment>

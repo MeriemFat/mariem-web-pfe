@@ -54,47 +54,53 @@ const DatatablePstatus = () => {
     // Configuration du tableau de données
     const dataTable = {
         columns: [
-            { label: 'Logo', field: 'logo' },
-            { label: 'Full Name', field: 'fullname' },
-            { label: 'Email', field: 'email' },
-            { label: 'Code Client', field: 'codeClient' },
+            { label: 'codeClient', field: 'codeClient' },
+            { label: 'codeAgent', field: 'codeAgent' },
+            { label: 'Nom', field: 'Nom' },
+            { label: 'prenom', field: 'prenom' },
             { label: 'Code Agent', field: 'codeAgent' },
-            { label: 'Phone', field: 'phone' },
-            { label: 'Address', field: 'adresse' },
-            { label: 'CIN', field: 'cin' },
-            { label: 'Type Person', field: 'typePerson' },
-            { label: 'City', field: 'ville' },
-            { label: 'Postal Code', field: 'codePostal' },
-            { label: 'Type Identifier', field: 'typeIdentifiant' },
-            { label: 'Date of Creation', field: 'dateCreation' },
+            { label: 'phone', field: 'phone' },
+            { label: 'adresse', field: 'adresse' },
+            { label: 'email', field: 'email' },
+            { label: 'cin', field: 'cin' },
+            { label: 'typePerson', field: 'typePerson' },
+            { label: 'ville', field: 'ville' },
+            { label: 'codePostal', field: 'codePostal' },
+            { label: 'typeIdentifiant', field: 'typeIdentifiant' },
+            { label: 'dateCreation', field: 'dateCreation' },
+            { label: 'dateDernierMiseAjour', field: 'dateDernierMiseAjour' },
+            { label: 'dateValidite', field: 'dateValidite' },
+            { label: 'roles', field: 'roles' },
+            { label: 'codeParent', field: 'codeParent' },
+            { label: 'identifiant', field: 'identifiant' },
             { label: 'Requested Role', field: 'requestedRole' },
             { label: 'Action', field: 'action' },
         ],
         rows: users.map((request) => ({
-            logo: (
-                <div className="d-flex align-items-center">
-                    <div className="avatar avatar-image mx-2">
-                        <img src={request.avatar || '/default-avatar.png'} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: "50%" }} alt="Avatar" />
-                    </div>
-                </div>
-            ),
-            fullname: `${request.Nom || 'Unknown'} ${request.prenom || ''}`,
-            email: request.email || 'No Email',
-            codeClient: request.codeClient || 'N/A',
-            codeAgent: request.codeAgent || 'N/A',
-            phone: request.phone || 'No Phone',
-            adresse: request.adresse || 'No Address',
-            cin: request.cin || 'No CIN',
-            typePerson: request.typePerson || 'Unknown',
-            ville: request.ville || 'No City',
-            codePostal: request.codePostal || 'No Code',
-            typeIdentifiant: request.typeIdentifiant || 'No Identifier',
-            dateCreation: request.dateCreation || 'No Date',
+                           codeClient: request.codeClient,
+                            codeAgent: request.codeAgent,
+                            Nom: request.Nom,
+                            prenom: request.prenom,
+                            phone: request.phone,
+                            adresse: request.adresse,
+                            email: request.email,
+                            cin: request.cin,
+                            typePerson: request.typePerson,
+                            ville: request.ville,
+                            codePostal: request.codePostal,
+                            typeIdentifiant: request.typeIdentifiant,
+                            dateCreation: request.dateCreation,
+                            dateDernierMiseAjour: request.dateDernierMiseAjour,
+                            dateValidite: request.dateValidite,
+                            roles: request.roles,
+                            codeParent: request.codeParent,
+                            avatar: request.avatar,
+                            identifiant: request.identifiant,
             requestedRole: (
                 <div>
                     <span className="badge badge-primary">
-                        {request.requestedRole === 10 ? "Client" :
-                            request.requestedRole === 20 ? "Agent" :
+                        {request.requestedRole === 10 ? "CLIENT" :
+                            request.requestedRole === 20 ? "AGENT" :
                                 "UNKNOWN"}
                     </span>
                 </div>

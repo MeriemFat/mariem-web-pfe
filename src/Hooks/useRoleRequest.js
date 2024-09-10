@@ -41,41 +41,41 @@ export const useRoleRequest = () => {
         toast.success('Your request is successfully emitted and pending an admin reply!');
         setIsLoading(false);
     };
-    const checkRequest = async () => {
-        setFetching(true);
-        const token = localStorage.getItem('token'); // Récupérer le token JWT
-    
-        if (!token) {
-            console.error('Token missing! Please log in again.');
-            toast.error('Please log in to check your request.');
-            setFetching(false);
-            return;
-        }
-    
-        fetch('/api/User/check-request', {
+
+   const checkRequest = async () => {
+    setFetching(true);
+    const token = localStorage.getItem('token'); // Récupérer le token JWT
+
+    if (!token) {
+        console.error('Token missing! Please log in again.');
+        toast.error('Please log in to check your request.');
+        setFetching(false);
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/User/check-request', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json' // Bien que non nécessaire pour GET, c'est correct
             }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Role request data:', data);
-            setFetching(false);
-        })
-        .catch(error => {
-            console.error('Error checking request:', error);
-            setFetching(false);
-            toast.error('Error fetching the role request.');
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Role request data:', data);
+    } catch (error) {
+        console.error('Error checking request:', error);
+        toast.error('Error fetching the role request.');
+    } finally {
+        setFetching(false);
     }
-    
+}
+
 
     const fetchRequests = async ()=> {
         setIsLoading(true);

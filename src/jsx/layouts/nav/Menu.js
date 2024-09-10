@@ -20,10 +20,7 @@ export const MenuList = [
                 to: 'profile',
 
             },
-            {
-                title: 'Complaint',
-                to: 'complaint',
-            },
+           
 
         ],
     },
@@ -68,21 +65,7 @@ export const MenuList = [
                 title: 'Gestion des demande',
                 to: 'Gestion_Des_Demande',
             },
-            {
-                title:'Services',
-                hasMenu : true,
-                content : [
-                    {
-                        title: 'service request',
-                        to : 'service-request',
-                    },
-                    {
-                        title: 'Gestion_des_Quittances',
-                        to : 'Gestion_des_Quittances',
-                    },
-
-                ],
-            },
+           
 
 
         ],
@@ -152,11 +135,7 @@ export const LINKS = [
                 to: 'profile',
 
             },
-            {
-                title: 'Complaint',
-                to: 'complaint',
-            },
-
+          
         ],
 
     },
@@ -214,21 +193,8 @@ export const LINKS = [
                 title: 'Gestion des demande',
                 to: 'Gestion_Des_Demande',
             },
-            {
-                title:'Services',
-                hasMenu : true,
-                content : [
-                    {
-                        title: 'service request',
-                        to : 'service-request',
-                    },
-                    {
-                        title: 'Gestion_des_Quittances',
-                        to : 'Gestion_des_Quittances',
-                    },
-
-                ],
-            },
+           
+          
 
 
         ],
@@ -290,10 +256,7 @@ export const USER_LINKS = [
                 to: 'profile',
 
             },
-            {
-                title: 'Complaint',
-                to: 'complaint',
-            },
+          
 
         ],
 
@@ -320,10 +283,7 @@ export const ADMIN_LINKS = [
                 to: 'profile',
 
             },
-            {
-                title: 'Complaint',
-                to: 'complaint',
-            },
+           
 
         ],
 
@@ -379,21 +339,7 @@ export const ADMIN_LINKS = [
                 title: 'Gestion des demande',
                 to: 'Gestion_Des_Demande',
             },
-            {
-                title:'Services',
-                hasMenu : true,
-                content : [
-                    {
-                        title: 'service request',
-                        to : 'service-request',
-                    },
-                    {
-                        title: 'Gestion_des_Quittances',
-                        to : 'Gestion_des_Quittances',
-                    },
-
-                ],
-            },
+           
 
 
         ],
@@ -451,10 +397,7 @@ export const FOURNISSEUR_LINKS = [
                 to: 'request-Role',
 
             },
-            {
-                title: 'Complaint',
-                to: 'complaint',
-            },
+          
 
         ],
 
@@ -481,10 +424,7 @@ export const AGENT_LINKS = [
                 to: 'profile',
 
             },
-            {
-                title: 'Complaint',
-                to: 'complaint',
-            },
+          
 
         ],
 
@@ -537,21 +477,7 @@ export const AGENT_LINKS = [
                 title: 'Gestion des demande',
                 to: 'Gestion_Des_Demande',
             },
-            {
-                title:'Services',
-                hasMenu : true,
-                content : [
-                    {
-                        title: 'service request',
-                        to : 'service-request',
-                    },
-                    {
-                        title: 'Gestion_des_Quittances',
-                        to : 'Gestion_des_Quittances',
-                    },
-
-                ],
-            },
+        
 
 
         ],
