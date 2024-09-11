@@ -5,6 +5,7 @@ export const MenuList = [
         title: 'Home',
         classsChange: 'mm-collapse',
         iconStyle: <i className="flaticon-dashboard-1"></i>,
+        roles:[10,20,30],
         content: [
             {
                 title: 'Home',
@@ -28,6 +29,7 @@ export const MenuList = [
     //Colaborateur
     {
         title: 'Agent',
+        roles:[20],
         classsChange: 'mm-collapse',
         iconStyle: <i className="flaticon-speedometer-1"></i>,
         content: [
@@ -77,6 +79,7 @@ export const MenuList = [
     {
         title: 'CentreTechnique',
         classsChange: 'mm-collapse',
+        roles:[30],
         iconStyle: <i className="flaticon-admin"></i>,
         content: [
             {
