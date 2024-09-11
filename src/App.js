@@ -9,7 +9,7 @@ import { checkAutoLogin } from './services/AuthService';
 import { isAuthenticated } from './store/selectors/AuthSelectors';
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
-impor  "./css/style.css";
+import "./css/style.css";
 import Home from "./jsx/components/Dashboard/Home/Home";
 import ForgotPassword from "./jsx/pages/ForgotPassword";
 
