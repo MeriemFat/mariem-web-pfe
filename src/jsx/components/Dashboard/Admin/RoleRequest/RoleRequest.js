@@ -49,7 +49,18 @@ const DatatablePstatus = () => {
             toast.error("Failed to reject request");
         }
     };
-
+  
+// Fonction pour envoyer une réponse par e-mail
+const envoyerReponseEmail = async (item) => {
+    try {
+      
+        await axios.post(`api/User/repondreAcceptParEmail/${item.user._id}`);
+        toast.success(`Email envoyé avec succès à ${item.user.email}`);
+    } catch (error) {
+        console.error("Failed to send email:", error);
+        toast.error("Failed to send email");
+    }
+};
 
     // Configuration du tableau de données
     const dataTable = {
@@ -72,7 +83,7 @@ const DatatablePstatus = () => {
             { label: 'dateValidite', field: 'dateValidite' },
             { label: 'roles', field: 'roles' },
             { label: 'codeParent', field: 'codeParent' },
-            { label: 'identifiant', field: 'identifiant' },
+          
             { label: 'Requested Role', field: 'requestedRole' },
             { label: 'Action', field: 'action' },
         ],
@@ -95,13 +106,14 @@ const DatatablePstatus = () => {
                             roles: request.user.roles,
                             codeParent: request.user.codeParent,
                             avatar: request.user.avatar,
-                            identifiant: request.user.identifiant,
+                           
             requestedRole: (
                 <div>
                     <span className="badge badge-primary">
                         {request.user.requestedRole === 10 ? "CLIENT" :
                             request.user.requestedRole === 20 ? "AGENT" :
-                                "UNKNOWN"}
+                             request.user.requestedRole === 30 ? "ADMIN" 
+                              : "UNKNOWN"}
                     </span>
                 </div>
             ),
@@ -117,6 +129,13 @@ const DatatablePstatus = () => {
                             <button className="btn btn-danger" onClick={() => handleReject(request)}>
                                 Decline
                             </button>
+                        </li>
+                      
+                        <li>
+                            <li><br></br></li>
+                        <button className="btn btn-success pr-4" onClick={() => envoyerReponseEmail(request)}>
+                         Envoyer 
+                        </button>
                         </li>
                     </ul>
                 </div>

@@ -31,7 +31,7 @@ const Complaint = () => {
         roles: [],
         codeParent: "",
         avatar: "",
-        identifiant: "",
+      
     });
     const [showModal, setShowModal] = useState(false);
 
@@ -60,7 +60,8 @@ const Complaint = () => {
                     roles: data.roles,
                     codeParent: data.codeParent,
                     avatar: data.avatar,
-                    identifiant: data.identifiant,
+                  
+
                 });
             } catch (error) {
                 toast.error("Error fetching user data");
@@ -217,17 +218,7 @@ const Complaint = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <div className="col-xl-4 col-sm-6">
-                                                            <div className="form-group">
-                                                                <label>Type Identifiant</label>
-                                                                <input
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    value={userData.typeIdentifiant}
-                                                                    disabled
-                                                                />
-                                                            </div>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -454,15 +445,7 @@ const Complaint = () => {
                                     onChange={handleInputChange}
                                 />
                             </Form.Group>
-                            <Form.Group controlId="formIdentifiant">
-                                <Form.Label>Identifiant</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="identifiant"
-                                    value={formData.identifiant}
-                                    onChange={handleInputChange}
-                                />
-                            </Form.Group>
+                           
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>

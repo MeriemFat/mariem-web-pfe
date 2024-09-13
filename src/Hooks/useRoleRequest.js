@@ -1,7 +1,7 @@
 import { useState} from 'react'
 import {toast} from "react-toastify";
 import {useAuthContext} from "../services/useAuthContext";
-
+import axios from "axios";
 export const useRoleRequest = () => {
 
     const [error, setError] = useState('')
@@ -15,7 +15,7 @@ export const useRoleRequest = () => {
         setIsLoading(true);
         setError('');
 
-        const response = await fetch(`api/User/request/`, {
+        const response = await fetch(`/api/User/request/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,30 +52,33 @@ export const useRoleRequest = () => {
         setFetching(false);
         return;
     }
-
+    
+   
     try {
-        const response = await fetch('/api/User/check-request', {
-            method: 'GET',
+        // Effectue une requête GET avec Axios
+        const response = await axios.get('/api/User/check-request', {
             headers: {
-                'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
-                'Content-Type': 'application/json' // Bien que non nécessaire pour GET, c'est correct
+                'Authorization': `Bearer ${token}` // Ajout du token dans l'en-tête
             }
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
+    
+        // Les données sont directement dans response.data avec Axios
+        const data = response.data;
+    
+        // Vérifie si le statut HTTP est une erreur (Axios renvoie automatiquement une erreur pour les statuts non 2xx)
         console.log('Role request data:', data);
+    
     } catch (error) {
-        console.error('Error checking request:', error);
+        // Gère les erreurs de requête réseau ou les erreurs serveur
+        console.error('Error checking request:', error.message);
         toast.error('Error fetching the role request.');
     } finally {
+        // Désactive l'état de chargement ou de traitement
         setFetching(false);
     }
+    return { submitRequest };
 }
-
+    
 
     const fetchRequests = async ()=> {
         setIsLoading(true);
@@ -87,13 +90,13 @@ export const useRoleRequest = () => {
             return;
         }
     
-        const response = await fetch(`api/User/requests`,{
+        const response = await axios.get(`/api/User/requests`,{
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`,  // Ajoutez le token dans l'en-tête
-                'Content-Type': 'application/json' // Bien que non nécessaire pour GET, c'est correct
+                'Authorization': `Bearer ${localStorage.getItem('token')}`  // Ajoutez le token dans l'en-tête
+                // Bien que non nécessaire pour GET, c'est correct
             }})
-        const json = await response.json()
+            const json = response.data;
 
         if (json.error) {
             if(json.error==='jwt expired'){
@@ -111,43 +114,54 @@ export const useRoleRequest = () => {
         }
         setIsLoading(false);
     }
-    const acceptRequest = async (request)=> {
-        setFetching(true);
-        const response = await fetch(`api/User/accept`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body:JSON.stringify(request)
-        })
-        const json = await response.json()
-
-        if (json.error) {
-            if(json.error==='jwt expired'){
-                localStorage.removeItem('token');
-                toast.dark('Please, re-sign in');
-                dispatch({type:'LOGOUT'})
-                setFetching(false);
+    const acceptRequest = async (request) => {
+        setFetching(true); // Active l'état de chargement
+    
+        try {
+            // Effectue la requête PUT avec axios
+            const response = await axios.put('/api/User/accept', request, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+            });
+    
+            // Le résultat de la requête est directement dans `response.data` avec axios
+            const json = response.data;
+    
+            // Gérer les erreurs si elles existent
+            if (json.error) {
+                if (json.error === 'jwt expired') {
+                    localStorage.removeItem('token');
+                    toast.dark('Please, re-sign in');
+                    dispatch({ type: 'LOGOUT' });
+                }
+                setError(json.error);
+                toast.error(json.error);
+            } else {
+                // Si tout va bien, traiter la réponse ici si nécessaire
+                toast.success('Request accepted successfully');
             }
-            setError(json.error)
+        } catch (error) {
+            // Gérer les erreurs de requête, telles que les erreurs réseau ou serveur
+            setError(error.message);
+            toast.error('An error occurred: ' + error.message);
+        } finally {
+            // Désactive l'état de chargement
             setFetching(false);
-            toast.error(json.error);
         }
-
-        setFetching(false);
-    }
+    };
+    
     const rejectRequest = async (request)=> {
         setFetching(true);
-        const response = await fetch(`api/User/reject`, {
+        const response = await axios.put(`/api/User/reject`,request, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+              
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body:JSON.stringify(request)
-        })
-        const json = await response.json()
+          
+        })  ; 
+        const json = response.data;
 
         if (json.error) {
             if(json.error==='jwt expired'){

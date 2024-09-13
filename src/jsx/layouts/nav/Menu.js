@@ -8,10 +8,6 @@ export const MenuList = [
         roles:[10,20,30],
         content: [
             {
-                title: 'Home',
-                to: 'home',
-            },
-            {
                 title: 'Role Request',
                 to: 'request-Role',
 
@@ -82,6 +78,10 @@ export const MenuList = [
         roles:[30],
         iconStyle: <i className="flaticon-admin"></i>,
         content: [
+            {
+                title: 'Home',
+                to: 'home',
+            },
             {
                 title: 'Gestion_Utilisateures',
                 to: 'Gestion_Utilisateures'
