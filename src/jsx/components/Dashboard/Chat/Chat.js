@@ -20,7 +20,7 @@ import {LuSendHorizonal} from "react-icons/lu";
 import ChatMessage from "../../ChatMessage";
 import './style.css'
 import Unauthorized from "../../../pages/Unauthorized";
-
+import axios from "axios";
 const ChatList = ({ userChats, onSelectChat }) => {
     const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -79,20 +79,22 @@ const ChatList = ({ userChats, onSelectChat }) => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/User/for-chat`,{
-                    method: 'GET',
+                const response = await axios.get(`/api/User/for-chat`, {
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    },
+                    }
                 });
-                return response.json();
+                
+                const data = response.data;  
+                console.log('Role request data:', data);
+                
             } catch (error) {
                 console.error('Error fetching users:', error);
-                throw error;
+                
+                throw error; 
             }
         };
-
+        
 
 
 
@@ -228,7 +230,7 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
     useEffect(() => {
         let socketInstance;
         try {
-            socketInstance = io('http://localhost:3000', { transports: ['websocket'] });
+            socketInstance = io({ transports: ['websocket'] });
         } catch (error) {
             console.log("Socket couldn't connect, ERROR:", error.message);
         }

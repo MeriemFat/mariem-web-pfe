@@ -14,41 +14,48 @@ export const useFindUserChats = () => {
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
     const getChats = async () => {
-        setIsLoading(true)
-        setError('')
-
-        const response = await fetch('http://localhost:3000/Chat/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-
-        })
-        const json = await response.json()
-
-        if (json.error) {
-
-            if(json.error === "jwt expired"){
-                toast.error("Your session has expired, Please re-sign in");
-                localStorage.removeItem('token');
-                dispatch({type:'LOGOUT'})
+        try {
+            setIsLoading(true);
+            setError('');
+    
+            const response = await axios.get('/chat', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+    
+            const json = response.data; // axios retourne directement les données ici, pas besoin de .json()
+    console.log(json); 
+            if (json.error) {
+                if (json.error === "jwt expired") {
+                    toast.error("Your session has expired, please re-sign in.");
+                    localStorage.removeItem('token');
+                    dispatch({ type: 'LOGOUT' });
+                    setIsLoading(false);
+                    return;
+                }
+    
+                setError(json.error);
+                setIsLoading(false);
+                return;
             }
-            setError(json.error)
-            setIsLoading(false)
-        }
-        if (!json.error) {
+    
+            // Si pas d'erreur
             setUserChats(json);
-            dispatchChat(setChats(json))
+            dispatchChat(setChats(json));
+    
             if (json.length > 0) {
                 setSelected(json[0]);
             }
-            setIsLoading(false)
+        } catch (error) {
+            console.error('Error fetching chats:', error);
+            setError('An error occurred while fetching chats.');
+            toast.error('An error occurred. Please try again later.');
+        } finally {
+            setIsLoading(false); // Assure que le chargement est terminé, même en cas d'erreur
         }
-    }
-
-
-
+    };
+    
 
 
 
