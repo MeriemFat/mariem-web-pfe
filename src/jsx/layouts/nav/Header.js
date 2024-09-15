@@ -17,7 +17,6 @@ const Header = ({ onNote, toggle, onProfile, onActivity, onNotification }) => {
   useEffect(() => {
     const user = localStorage.getItem("user");
     const value = JSON.parse(user);
-    console.log(value)
     setUser(value);
   }, []);
 

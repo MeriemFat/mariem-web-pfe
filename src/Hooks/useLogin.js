@@ -34,7 +34,7 @@ export const useLogin = () => {
 
                 const user = jwtDecode(token);
                 localStorage.setItem('user', JSON.stringify(user));
-                 console.log(user)
+               
                 if (!user.isBlocked) {
                     dispatch({ type: 'LOGIN', payload: user });
                     toast.success('Login successful');
