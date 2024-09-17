@@ -3,9 +3,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import LogoutPage from "./Logout";
 import { Dropdown } from "react-bootstrap";
-import { useAuthContext } from "../../../services/useAuthContext";
-import axios from "axios";
 
+import { MenuList } from "./Menu";
 import avatar from "../../../images/avatar/1.jpg";
 
 const Header = ({ onNote, toggle, onProfile, onActivity, onNotification }) => {
@@ -19,6 +18,32 @@ const Header = ({ onNote, toggle, onProfile, onActivity, onNotification }) => {
     const value = JSON.parse(user);
     setUser(value);
   }, []);
+  const getTitleFromPath = (pathname) => {
+    let title = "";
+
+    // Recursive function to search within nested content
+    const findTitle = (items) => {
+      for (const item of items) {
+        // Check if current item matches the pathname
+        if (item.to === pathname) {
+          title = item.title;
+          return;
+        }
+
+        // If there's nested content, search recursively
+        if (item.content && item.content.length > 0) {
+          findTitle(item.content);
+        }
+      }
+    };
+
+    // Start searching in the MenuList
+    findTitle(MenuList);
+
+    return title;
+  };
+
+  // Example usage:
 
   const getPageName = (path) => {
     const pathParts = path.split("/").filter(Boolean);
@@ -48,9 +73,12 @@ const Header = ({ onNote, toggle, onProfile, onActivity, onNotification }) => {
 
     return capitalizedParts.join(" ");
   };
-
-  const page_name = getPageName(location.pathname);
-
+  // const pathname = 'Gestion_des_Demandes';
+ 
+  // console.log(title);
+  // console.log(location.pathname);
+  const title = getPageName(location.pathname);
+ const page_name = getTitleFromPath(title);
   return (
     <div className="header">
       <div className="header-content">
@@ -69,9 +97,10 @@ const Header = ({ onNote, toggle, onProfile, onActivity, onNotification }) => {
                 <Link
                   to="/chat"
                   className="nav-link bell bell-link"
-                  onClick={() => onNote()}
+                  onClick={onNote}
                 >
-                  {/* SVG et autres contenus */}
+                  <i className="fa fa-comments-o" aria-hidden="true"></i>
+
                   <span className="badge light text-white bg-primary">*</span>
                 </Link>
               </li>
@@ -85,11 +114,7 @@ const Header = ({ onNote, toggle, onProfile, onActivity, onNotification }) => {
                     <small>Good Morning</small>
                     <span>{`${USER?.Nom} ${USER?.prenom}`}</span>
                   </div>
-                  <img
-                    src={USER?.avatar ? USER?.avatar : avatar}
-                    width="20"
-                    alt=""
-                  />
+                  <img src={avatar} width="20" alt="" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                   align="end"

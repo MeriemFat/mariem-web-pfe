@@ -109,9 +109,7 @@ const AdminProfile = () => {
 
 
 	return (
-		USER ?
-
-
+	
 			<Fragment>
 		  <PageTitle activeMenu="Profile" motherMenu="App" />
 	
@@ -307,13 +305,7 @@ const AdminProfile = () => {
 		  </div>
 		</Fragment>
 
-			: (
-				<div>
-					<>
-						<Unauthorized/>
-					</>
-				</div>
-			)
+	
 	);
 };
 

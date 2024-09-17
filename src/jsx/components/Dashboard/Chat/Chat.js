@@ -291,7 +291,7 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [socket, setSocket] = useState(null);
   const [messageList, setMessageList] = useState([]);
-  const messageContainerRef = useRef(null); 
+  const messageContainerRef = useRef(null);
 
   useEffect(() => {
     setSelectedChatId(propsSelectedChat?._id);
@@ -342,9 +342,8 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
     }
   };
   const sendMessage = async (data) => {
-
     apiSendMessageInGroup(data).then((data) => {
-      setMessageList(prev=>[...prev,data])
+      setMessageList((prev) => [...prev, data]);
       scrollToBottom();
       console.log(data);
     });
@@ -364,14 +363,12 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
     if (!!selectedChatId) {
       getlistOfMessage(selectedChatId);
     }
-
-  
   }, [selectedChatId]);
 
   const { handleSubmit, register, reset } = useForm({
     defaultValues: {
       message: "",
-   
+
       timestamp: Date.now(),
     },
   });
@@ -387,13 +384,13 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
   };
   const scrollToBottom = () => {
     if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
     }
   };
   const [footerRef, { height: footerHeight }] = useMeasure();
   const [headerRef, { height: headerHeight }] = useMeasure();
   // const messages = propsSelectedChat ? propsSelectedChat.messages : [];
-
 
   const uniqueDates = [
     ...new Set(
@@ -410,7 +407,7 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
   return (
     <div className="card h-2 d-flex flex-column justify-content-between">
       <h3 ref={headerRef}>Chat</h3>
-      
+
       {/* Scrollable message container */}
       <div
         ref={messageContainerRef}
@@ -451,7 +448,6 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
         ))}
       </div>
 
-     
       {propsSelectedChat && (
         <div className="card_footer" ref={footerRef} style={{ paddingTop: 20 }}>
           <form
@@ -465,7 +461,7 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
                 {...register("message", { required: true })}
                 style={{ flexGrow: 1 }}
               />
-              <button type="submit"  className="btn">
+              <button type="submit" className="btn">
                 <LuSendHorizonal />
               </button>
             </div>
@@ -479,10 +475,8 @@ const MessageSection = ({ selectedChat: propsSelectedChat }) => {
 const Chat = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const { USER } = useAuthContext();
-  useEffect(() => {
-    console.log(selectedChat);
-  }, [selectedChat]);
-  return USER ? (
+
+  return (
     <div>
       <PageTitle
         activeMenu="Messangerie"
@@ -499,20 +493,20 @@ const Chat = () => {
               <div className="profile-info">
                 <div className="profile-photo">
                   <img
-                    src={USER.avatar}
+                    src={USER?.avatar}
                     className="img-fluid rounded-circle"
                     alt="profile"
                   />
                 </div>
                 <div className="profile-details">
                   <div className="profile-name px-3 pt-2">
-                    <h4 className="text-primary mb-0">{USER.fullname}</h4>
+                    <h4 className="text-primary mb-0">{USER?.fullname}</h4>
                     <p>
-                      {USER.roles === 20 ? (
+                      {USER?.roles === 20 ? (
                         <p>Fournisseur</p>
-                      ) : USER.roles === 30 ? (
+                      ) : USER?.roles === 30 ? (
                         <p>Collaborateur</p>
-                      ) : USER.roles === 10 ? (
+                      ) : USER?.roles === 10 ? (
                         <p>Admin</p>
                       ) : (
                         <p>Client</p>
@@ -520,7 +514,7 @@ const Chat = () => {
                     </p>
                   </div>
                   <div className="profile-email px-2 pt-2">
-                    <h4 className="text-muted mb-0">{USER.email}</h4>
+                    <h4 className="text-muted mb-0">{USER?.email}</h4>
                     <p>Email</p>
                   </div>
                 </div>
@@ -537,12 +531,6 @@ const Chat = () => {
           <MessageSection selectedChat={selectedChat} />
         </div>
       </div>
-    </div>
-  ) : (
-    <div>
-      <>
-        <Unauthorized />
-      </>
     </div>
   );
 };

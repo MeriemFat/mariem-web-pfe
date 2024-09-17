@@ -38,7 +38,12 @@ const Complaint = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`/api/User/getProfile?codeAgent=${USER.codeAgent}`);
+                const response = await axios.get(`/api/User/getProfile`,{
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`, 
+                        'Content-Type': 'application/json' 
+                    }
+                });
                 const data = response.data;
                 setUserData(data);
                 setFormData({
@@ -69,7 +74,7 @@ const Complaint = () => {
         };
 
         fetchUserData();
-    }, [USER.codeAgent]);
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -101,7 +106,7 @@ const Complaint = () => {
     };
     
     return (
-        USER ? (
+       
             <Fragment>
                 <div className="row">
                     <div className="col-xl-9 col-xxl-8 col-lg-8">
@@ -242,11 +247,11 @@ const Complaint = () => {
                                         </div>
                                         <h4 className="fs-22 text-black mb-1">{userData.Nom} {userData.prenom}</h4>
                                         <p className="mb-4">
-                                            {USER.roles.includes(20) ? (
+                                            {USER?.roles?.includes(20) ? (
                                                 <p>AGENT</p>
-                                            ) : USER.roles.includes(30) ? (
+                                            ) : USER?.roles?.includes(30) ? (
                                                 <p>ADMIN</p>
-                                            ) : USER.roles.includes(10) ? (
+                                            ) : USER?.roles?.includes(10) ? (
                                                 <p>Client</p>
                                             ) : (
                                                 <p>USER</p>
@@ -458,11 +463,7 @@ const Complaint = () => {
                     </Modal.Footer>
                 </Modal>
             </Fragment>
-        ) : (
-            <div>
-                <Unauthorized />
-            </div>
-        )
+        
     );
 };
 

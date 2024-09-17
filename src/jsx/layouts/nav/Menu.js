@@ -83,7 +83,7 @@ export const MenuList = [
                 to: 'home',
             },
             {
-                title: 'Gestion_Utilisateures',
+                title: 'Gestion Utilisateures',
                 to: 'Gestion_Utilisateures'
             },
             {
@@ -91,16 +91,16 @@ export const MenuList = [
                 to: 'role-request'
             },
             {
-                title: 'Gestion_des_Contrats',
+                title: 'Gestion des Contrats',
                 to: 'Gestion_des_Contrats',
             },
           
             {
-                title: 'Gestion_des_Sinistres',
+                title: 'Gestion des Sinistres',
                 to: 'Gestion_des_Sinistres',
             },
             {
-                title: 'Gestion_des_Quittances',
+                title: 'Gestion des Quittances',
                 to: 'Gestion_des_Quittances',
             },
             {
